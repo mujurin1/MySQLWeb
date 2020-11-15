@@ -1,0 +1,32 @@
+@page
+@model MySQLWeb.Pages.Database.CreateRoleModel
+@{
+  ViewData["Title"] = "ロール作成";
+}
+<h1>@ViewData["Title"]</h1>
+
+<h4>ロール</h4>
+<hr>
+<div class="row">
+  <div class="col-md-4">
+    <form method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="form-group">
+        <label asp-for="Role" class="control-rabel"></label>
+        <input asp-for="Role" class="form-control" />
+        <span asp-validation-for="Role" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="作成" class="btn btn-primary" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div>
+  <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+  @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

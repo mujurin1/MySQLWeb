@@ -1,0 +1,78 @@
+@page
+@model MySQLWeb.Pages.Database.IndexModel
+@{
+  ViewData["Title"] = "ユーザー/ロール";
+}
+
+<h4>ユーザー一覧</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.Users[0].Id)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Users[0].UserName)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Users[0].Email)
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+@foreach(var user in Model.Users){
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => user.Id)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => user.UserName)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => user.Email)
+      </td>
+      <td>
+        <a asp-page="./DeleteUser" asp-route-id="@user.Id">削除</a> | 
+        <a asp-page="./EditUser" asp-route-id="@user.Id">編集</a>
+      </td>
+    </tr>
+}
+  </tbody>
+</table>
+
+<hr>
+
+<p>
+  <a asp-page="./CreateRole">ロール作成</a>
+</p>
+
+<h4>ロール一覧</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        @Html.DisplayNameFor(model => model.Roles[0].Id)
+      </th>
+      <th>
+        @Html.DisplayNameFor(model => model.Roles[0].Name)
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+@foreach(var role in Model.Roles){
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => role.Id)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => role.Name)
+      </td>
+      <td>
+        <a asp-page="./DeleteRole" asp-route-id="@role.Id">削除</a>
+      </td>
+    </tr>
+}
+  </tbody>
+</table>

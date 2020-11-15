@@ -1,0 +1,34 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  nginx:
+    container_name: "my_nginx"
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - mysqlweb
+    build: ./nginx
+    image: 'my_nginx'
+  mysqlweb:
+    container_name: mysqlweb
+    image: mysqlweb
+    build:
+      context: .
+      dockerfile: ./asp.Dockerfile
+    links:
+      - mysql
+  mysql:
+    container_name: mysql
+    build:
+      context: .
+      dockerfile: sql.Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./db:/var/lib/mysql
+    ports:
+      - 8888:3306

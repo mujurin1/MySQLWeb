@@ -1,0 +1,59 @@
+@page
+@model MySQLWeb.Pages.Database.EditUserModel
+@{
+  ViewData["Title"] = "ユーザー編集";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+  <div class="col-mod-6">
+    <form method="post">
+      <div class="form-group">
+        <input type="hidden" asp-for="EditUser.Id" />
+      </div>
+      <div class="form-group">
+        <label asp-for="EditUser.UserName" class="control-label"></label>
+        <input asp-for="EditUser.UserName" class="form-control" />
+        <span asp-validation-for="EditUser.UserName" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="EditUser.Email" class="control-label"></label>
+        <input asp-for="EditUser.Email" class="form-control" />
+        <span asp-validation-for="EditUser.Email" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="EditUser.PhoneNumber" class="control-label"></label>
+        <input asp-for="EditUser.PhoneNumber" class="form-control" />
+        <span asp-validation-for="EditUser.PhoneNumber" class="text-danger"></span>
+      </div>
+      <div class="form-group">
+        <label asp-for="Roles" class="control-label"></label><br>
+        <table class="table">
+          <tr>
+@{
+  int cnt = 0;
+  foreach(var role in Model.Roles){
+    if(cnt++ % 3 == 0){
+            @:</tr><tr>
+    }
+            @:<td>
+              <input  type="checkbox" name="Roles"
+                      value="@role.Role.Name" @Html.Raw(role.IsGet ? "checked=\"checked\"" : "") />
+                @role.Role
+            @:</td>
+  }
+}
+          </tr>
+        </table>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="変更" class="btn btn-primary" />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div>
+  <a asp-page="./Index">Back to List</a>
+</div>
