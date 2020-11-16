@@ -76,11 +76,12 @@ public class RegisterModel : PageModel
 	{
 		returnUrl = returnUrl ?? Url.Content("~/");
 		ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-		if(ModelState.IsValid) return Page();
+		if(!ModelState.IsValid) return Page();
 
-		// // 同じメールアドレスで登録されているか確認する
+		// 同じメールアドレスで登録されているか確認する
 		// if(_userManager.Users.Any(u => u.Email == Input.Email)){
-			
+		// 	ModelState.AddModelError(string.Empty, "メールアドレスが重複しています");
+		// 	return Page();
 		// }
 
 		var user = new IdentityUser { UserName = Input.UserName, Email = Input.Email };

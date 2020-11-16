@@ -34,6 +34,14 @@ public class Startup
 			.AddRoles<IdentityRole>()
 			.AddEntityFrameworkStores<ApplicationDbContext>();
 		services.AddRazorPages();
+
+		services.AddMvc(o => {
+			o.ModelMetadataDetailsProviders.Add(
+				new MySQLWeb.Resources.CustomValidationMetadataProvider (
+					"MySQLWeb.Resources.Resource",
+					typeof(MySQLWeb.Resources.CustomValidationMetadataProvider)));
+		});
+
 		// Viewの変更を即時反映
 		services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
@@ -46,6 +54,7 @@ public class Startup
 			options.Password.RequiredUniqueChars = 0;
 
 			options.User.AllowedUserNameCharacters = "";	// ユーザー名の制限をなくす
+			options.User.RequireUniqueEmail = true;			// 一意のメールアドレス
 		});
 	}
 
